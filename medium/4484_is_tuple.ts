@@ -22,15 +22,11 @@
 
 type IsTuple<T> = [T] extends [never]
     ? false
-    : T extends []
-        ? true
-        : T extends readonly [unknown]
-            ? true
-            : T extends ReadonlyArray<infer U>
-                ? ReadonlyArray<U> extends T
-                    ? true
-                    : false
-                : false;
+    : T extends readonly unknown[]
+        ? number extends T["length"]
+            ? false
+            : true
+        : false;
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
